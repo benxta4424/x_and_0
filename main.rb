@@ -12,24 +12,35 @@ def play_game
 
   until board.win?
 
+    
     puts "#{current_player.nume} make a choice please:"
     choice=gets.chomp.to_i-1
 
-    if choice_vector.include?(choice)
-      puts "there is already a mark there,pick something else"
-    else
-      board.update(choice,current_player.alegere)
-      choice_vector.push(choice)
-      turn+=1
-      board.display      
+    while choice_vector.include?(choice)
+      puts "There is already a mark there,pick something else"
+
+      puts "#{current_player.nume} make a choice please:"
+      choice=gets.chomp.to_i-1
+
+      if !choice_vector.include?(choice)
+        break
+      end
     end
+
+    board.update(choice,current_player.alegere)
+    choice_vector.push(choice)
+    turn+=1
+    board.display      
+
 
     if board.win?
       puts "#{current_player.nume} wins!"
       break
-    elsif turn>=10
+    elsif turn>=9
       puts "TIE"
       break
+    else
+      current_player=current_player==player1 ? player2 : player1
     end
   end
 end
