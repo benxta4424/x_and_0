@@ -18,9 +18,10 @@ class Board
   end
 
   def update(position, marker)
-    return unless is_legal?(position)
+    return false unless is_legal?(position)
 
     @board[position] = marker
+    return true
   end
 
   def is_legal?(position)
